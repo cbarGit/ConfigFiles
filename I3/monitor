@@ -1,0 +1,61 @@
+#!/bin/bash
+
+active=$(xrandr | grep -E " connected (primary )?[1-9]+" | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
+len=$(echo ${#active})
+img=$HOME/wall.png
+flag=0
+
+if [[ $active = "" ]]
+then
+	flag=1
+    xrandr --output LVDS1 --auto --output HDMI1 --off 
+    xrandr --output LVDS1 --primary
+    nitrogen --set-zoom-fill $img 
+#    cp ~/.i3/.conkyrcL ~/.i3/.conkyrc
+    sleep 1
+fi
+if [ $len -eq 5  ] && [[ $active = "LVDS1" ]]
+then
+	flag=2
+    xrandr --output LVDS1 --auto --output HDMI1 --auto --above LVDS1
+    xrandr --output LVDS1 --primary
+    nitrogen --restore 
+    sleep 1
+fi
+if [ $len -gt 5  ]
+then
+	flag=3
+    xrandr --output LVDS1 --off --output HDMI1 --auto
+    xrandr --output HDMI1 --primary
+    nitrogen --set-zoom-fill $img
+    sleep 1
+fi
+if [ $len -eq 5  ] && [[ $active = "HDMI1" ]]
+then
+	flag=1
+    xrandr --output LVDS1 --auto --output HDMI1 --off
+    xrandr --output LVDS1 --primary
+    nitrogen --set-zoom-fill $img 
+    sleep 1
+fi
+
+i3-msg 'restart'
+
+sleep 1
+
+if [ $flag -eq 1 ]
+then
+	notify-send -i gtk-dialog-info "LVDS On | HDMI Off"
+fi
+if [ $flag -eq 2 ]
+then
+    notify-send -i gtk-dialog-info "LVDS + HDMI On"
+fi
+if [ $flag -eq 3 ]
+then
+    notify-send -i gtk-dialog-info "LVDS Off | HDMI On"
+fi
+
+sleep 1
+
+exit

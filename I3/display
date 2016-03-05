@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#query dpms with xset and switch status, also exit and restart xscreensaver
+
+if xset -q | grep DPMS| grep -c Enabled ; then
+  xset -dpms; #xset s off; #xscreensaver-command -exit
+  xset s off off;
+  notify-send -i gtk-dialog-info "Screen saving is OFF"
+  echo "Inhibitor On"
+else
+  xset +dpms; #xset s on; #xscreensaver &
+  notify-send -i gtk-dialog-info "Screen saving is ON"
+  echo "Inhibitor Off"
+fi

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+echo -e "Ciao \E[31m`tput bold`$USER`tput sgr0`!" 
+echo -e "Sono le \E[32m`tput bold``date +"%T"``tput sgr0` di \E[32m`tput bold``date +"%A"` \E[32m`tput bold``date +"%d"` `date +"%B"` `date +"%Y"``tput sgr0`, ed è la settimana numero \E[32m`tput bold``date +"%V"``tput sgr0` dell'anno."
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+echo "Eccoti un po' di informazioni sul sistema."
+echo -e "Il tuo hostname è '\E[33m`tput bold``hostname``tput sgr0`'..."
+echo -e "..su una macchina \E[35m`tput bold``uname -o``tput sgr0` con architettura \E[35m`tput bold``uname -p``tput sgr0` e kernel \E[35m`tput bold``uname -r``tput sgr0`."
+echo -n "Il processore è un ";cat /proc/cpuinfo | awk  'FNR==5{for(i=4;i<=11;i++) printf "\033[38;5;83m"$i"\033[0m"" "}';echo ","
+echo -n "con";echo $(cat /proc/cpuinfo | awk -F: 'FNR==13{print "\033[38;5;83m"$2"\033[0m"}')" core/s, ed una cache size di"$(cat /proc/cpuinfo | awk -F: 'FNR==9{print "\033[38;5;83m"$2"\033[0m"}')".";
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+echo -en "Il tuo IP pubblico è: \E[4;34m`tput bold``/home/cesc/.checkIP``tput sgr0`. "; echo -e "Mentre il privato: \E[1;34m`tput bold``ifconfig | awk -F: 'FNR==19 {print $2}' | awk '{print $1}'``tput sgr0`.";
+echo -e "La durata dell'attuale sessdione è di\E[0;36m`tput bold``/home/cesc/.uptime | cut -d: -f2 | head -n1``tput sgr0`."
+echo -e "L'ultimo reboot in data (formato anglosassone): \E[0;36m`tput bold``last | grep reboot | head -n1 | awk '{print $5,$6,$7,$8}'``tput sgr0`"
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+echo -e "\E[37m`tput bold`Queste sono delle informazioni sul disco:`tput sgr0`"
+#echo
+df -h | awk  '/sda/ { print $1"\t""\033[0m"$2"\033[0m""\t""\033[31m"$3"\033[0m""\t""\033[32m"$4"\033[0m""\t""\033[33m"$5"\033[0m"  } /File/ { print "\033[4m"$1"\033[0m""\t""\033[4m"$2"\033[0m""\t""\033[4m"$3"\033[0m""\t""\033[4m"$4"\033[0m""\t""\033[4m"$5"\033[0m" }'
+echo "..............................................................................."
+echo -e "\E[37m`tput bold`Queste sono delle informazioni sulla memoria:`tput sgr0`"
+#echo
+free -m | awk '/used/ { print "\033[4m"$1"\033[0m""\t""\033[4m"$2"\033[0m""\t""\033[4m"$3"\033[0m""\t""\033[4m"$5"\033[0m""\t""\033[4m"$6"\033[0m" }'
+free -m | awk '/Mem/ { print "\033[37m"$2"\033[0m""\t""\033[31m"$3"\033[0m""\t""\033[32m"$4"\033[0m""\t""\033[33m"$6"\033[0m""\t""\033[33m"$7"\033[0m" }'; echo -en '\033[33mNoBuf\033[0m';free -m | tail -n2 | awk '/buffers/ { print "\t""\033[31m"$3"\033[0m""\t""\033[32m"$4"\033[0m" }'
+echo
+echo -e "\E[37m`tput bold`Questi sono i processi che occupano più memoria in questo momento:`tput sgr0`"
+ps axu | awk '{print $4, $11}' | tail -0 && ps axu | awk '{ print "\033[37m"$4"\033[0m""\t""\033[37m"$11"\033[0m" }' | sort -k3 -nr |head -11
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+if [ $LANG == it_IT.UTF-8 ]; then
+echo "Grazie!"
+else
+echo "Thank You!"
+fi

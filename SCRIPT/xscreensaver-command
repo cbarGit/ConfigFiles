@@ -1,0 +1,10 @@
+#! /bin/bash
+
+active=$(xrandr | grep -E " connected (primary )?[1-9]+" | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
+
+if [ $active = "LVDS1" ]
+then
+i3lock -i $HOME/Pictures/samurai_dinerS.png && xset dpms force off
+else
+i3lock -ti $HOME/Pictures/samurai_diner.png && xset dpms force off
+fi

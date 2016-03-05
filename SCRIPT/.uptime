@@ -1,0 +1,43 @@
+#!/bin/bash
+
+a=`cat /proc/uptime | cut -d " " -f1`
+b=`echo $a | cut -d "." -f1`
+e=`expr $b \/ 86400`
+f=`expr $b \% 86400`
+g=`expr $f \/ 3600`
+h=`expr $f \% 3600`
+i=`expr $h \/ 60`
+j=`expr $h \% 60`
+
+if [ $e == 0 ]
+then
+if [ $g == 0 ]
+then
+echo "Uptime: $i min, $j sec"
+elif [ $g == 1 ]
+then
+echo "Uptime: $g ora, $i min, $j sec"
+elif [ $g > 1 ]
+then
+echo "Uptime: $g ore, $i min, $j sec"
+fi
+fi
+#if [ $g == 0 ]
+#then
+#echo "Uptime: $e giorno/i, $i min, $j sec"
+#else
+#echo "Uptime: $e giorno/i, $g ore, $i min, $j sec"
+#fi
+if [ $e == 1 ] && [ $g == 0 ]
+then
+echo "Uptime: $e giorno, $i min, $j sec"
+elif [ $e > 1 ] && [ $g == 0 ]
+then
+echo "Uptime: $e giorni, $i min, $j sec"
+elif [ $e > 1 ] && [ $g == 1 ]
+then
+echo "Uptime: $e giorni, $g ora, $i min, $j sec"
+elif [ $e > 1 ] && [ $g > 1 ]
+then
+echo "Uptime: $e giorni, $g ore, $i min, $j sec"
+fi
