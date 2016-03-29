@@ -14,8 +14,8 @@ set $mod mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 #font pango:Ubuntu Mono 11
-font pango:ohsnap 12
-#font pango:Terminus 12
+#font pango:ohsnap 12
+font pango:Terminus 12
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -32,7 +32,7 @@ font pango:ohsnap 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id urxvt
 #bindsym $mod+Return exec --no-startup-id terminator
 
 # kill focused window
@@ -145,13 +145,13 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 
 bindsym XF86Sleep exec --no-startup-id i3exit suspend
 bindsym XF86WLAN exec --no-startup-id i3msg 'nothing'
-bindsym XF86HomePage exec --no-startup-id thunar /home/user
+bindsym XF86HomePage exec --no-startup-id thunar /home/cesco
 bindsym XF86Suspend exec --no-startup-id i3exit hibernate
 bindsym XF86ScreenSaver exec --no-startup-id i3exit lock
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 7
 bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 7
-bindsym $mod+m exec --no-startup-id /home/user/monitor
-bindsym Control+space exec --no-startup-id dmenu_run -i -b -p 'Arch Linux' -fn 'Terminus-13' -hist /home/user/.i3/history
+bindsym $mod+m exec --no-startup-id /home/cesco/monitor
+bindsym Control+space exec --no-startup-id dmenu_run -i -b -p 'Arch Linux' -fn 'Terminus-13' -hist /home/cesco/.i3/history
 # -nb '#fdf6e3' -nf '#586c75' -sf '#fdf6e3' -sb '#b58900'
 bindsym $mod+d exec --no-startup-id $HOME/display
 bindsym $mod+z exec --no-startup-id thunar
@@ -162,7 +162,7 @@ bindsym $mod+Shift+z exec --no-startup-id i3-msg 'exec urxvt -e ranger'
 bindsym --release $mod+Print exec --no-startup-id import -window root ~/Shots/`/bin/date +%d_%m_%Y-%H_%M_%S`.png
 bindsym --release $mod+Shift+Print exec --no-startup-id import ~/Shots/`/bin/date +%d_%m_%Y-%H_%M_%S`.png
 #bindsym --release $mod+Control+Print exec --no-startup-id import ~/Shots/screenshot-`/bin/date +%d%m%Y-%H:%M:%S`.png
-
+bindsym $mod+c exec --no-startup-id gsimplecal
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -199,12 +199,16 @@ mode "$mode_system" {
     bindsym r exec --no-startup-id i3exit reboot, mode "default"
     bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
 
+    # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+Pause mode "$mode_system"
 
-
+#border none
+#hide_edge_borders both
+#for_window [class="^.*"] border pixel 2 
+#hide_edge_borders vertical
 new_window pixel 2
 new_float normal 2
 for_window [class="Galculator"] floating enable
@@ -216,7 +220,7 @@ for_window [class="qbittorrent"] floating enable
 for_window [class="Qbittorrent"] floating enable
 for_window [class="qBittorrent"] floating enable
 for_window [class="Keepassx"] floating enable
-for_window [class="Dukto"] floating enable
+#for_window [class="dukto"] floating enable
 for_window [class="smplayer"] floating enable
 for_window [class="Skype"] floating enable
 for_window [class="Pavucontrol"] floating enable
@@ -224,6 +228,7 @@ for_window [class="Lxappearance"] floating enable
 for_window [class="Vlc"] floating enable
 for_window [class="Corebird"] floating enable
 for_window [class="Soundconverter"] floating enable
+#assign [class="Thunderbird"] 3: Mail
 
 # class                 border  backgr. text    indicator
 client.focused          #4c7899 #285577 #ffffff #25C4F4
@@ -238,7 +243,9 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000
 bar {
 	id 1
     position top
+#    status_command conky -c $HOME/.i3/.conkyrc
     status_command $HOME/.i3/conky
+#	status_command py3status -c ~/.i3/i3status.conf
     output LVDS1
 	tray_output primary
 
@@ -248,19 +255,25 @@ bar {
         separator  #666666
         
         # Type             border  background font
-
+        #focused_workspace  #197DB9 #197DB9 #ffffff
+        #active_workspace   #333333 #5f676a #ffffff
+        #inactive_workspace #444444 #222222 #bbbbbb
+        #urgent_workspace   #aa0000 #990000 #ffffff
         focused_workspace  #3E73A6 #3E73A6 #ffffff
         active_workspace   #333333 #5f676a #ffffff
         inactive_workspace #434343 #434343 #bbbbbb
         urgent_workspace   #aa0000 #990000 #ffffff
     }
     font pango:Terminus 12
+#    status_command i3status -c ~/.i3/i3status.conf
 }
 
 bar {
 	id 2
     position top
+#    status_command conky -c $HOME/.i3/.conkyrc
     status_command $HOME/.i3/conkyH
+#	status_command py3status -c ~/.i3/i3status.conf
     output HDMI1
     tray_output primary
     colors {
@@ -269,19 +282,26 @@ bar {
         separator  #666666
         
         # Type             border  background font
-
+        #focused_workspace  #197DB9 #197DB9 #ffffff
+        #active_workspace   #333333 #5f676a #ffffff
+        #inactive_workspace #444444 #222222 #bbbbbb
+        #urgent_workspace   #aa0000 #990000 #ffffff
         focused_workspace  #3E73A6 #3E73A6 #ffffff
         active_workspace   #333333 #5f676a #ffffff
         inactive_workspace #434343 #434343 #bbbbbb
         urgent_workspace   #aa0000 #990000 #ffffff
     }
     font pango:Terminus 12
+#    status_command i3status -c ~/.i3/i3status.conf
 }
 
 exec --no-startup-id nm-applet
 exec --no-startup-id udiskie --tray
 exec --no-startup-id volumeicon
 exec --no-startup-id nitrogen --set-zoom-fill $HOME/wall.png
+#exec --no-startup-id feh --bg-fill $HOME/wall.png
+#exec --no-startup-id synapse -s
+#exec --no-startup-id compton --config ~/.compton.conf
 exec --no-startup-id compton --backend glx --vsync opengl -b
 exec --no-startup-id bash -c 'xset s off off'
 exec --no-startup-id xset dpms 60 60 60
@@ -290,5 +310,7 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id parcellite 
 exec --no-startup-id xmodmap -e 'remove Mod4 = Super_R'
 exec --no-startup-id xmodmap -e 'add Mod3 = Super_R'
-exec --no-startup-id i3-msg 'workspace 9:Top; exec urxvt -e top -d 1; workspace 1'
 exec --no-startup-id xrandr --output LVDS1 --primary
+exec --no-startup-id $HOME/.dualLog
+exec --no-startup-id dunst -config /home/cesco/.config/dunst/dunstrc
+exec --no-startup-id i3-msg 'workspace 9:Top; exec urxvt -e top -d 1; workspace 1'
