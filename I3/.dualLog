@@ -1,0 +1,18 @@
+#! /bin/bash
+
+
+num=$(xrandr | grep -E " connected (primary )?[1-9]+" | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/" | wc -l)
+
+typeD=$(xrandr | grep -E " connected (primary )?[1-9]+" | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/" | tail -n1)
+
+img=$HOME/wall.png
+
+if [ $num -eq 2 ] && [[ $typeD = "HDMI1" ]]
+then
+    xrandr --output LVDS1 --primary
+	xrandr --output LVDS1 --auto --output HDMI1 --auto --above LVDS1
+	sleep 1
+#	nitrogen --restore
+fi 
+
+i3-msg 'restart' 

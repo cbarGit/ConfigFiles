@@ -46,10 +46,10 @@ bindsym $mod+Shift+q kill
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -58,10 +58,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+#bindsym $mod+Shift+j move left
+#bindsym $mod+Shift+k move down
+#bindsym $mod+Shift+l move up
+#bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -163,6 +163,7 @@ bindsym --release $mod+Print exec --no-startup-id import -window root ~/Shots/`/
 bindsym --release $mod+Shift+Print exec --no-startup-id import ~/Shots/`/bin/date +%d_%m_%Y-%H_%M_%S`.png
 #bindsym --release $mod+Control+Print exec --no-startup-id import ~/Shots/screenshot-`/bin/date +%d%m%Y-%H:%M:%S`.png
 bindsym $mod+c exec --no-startup-id gsimplecal
+bindsym $mod+l exec --no-startup-id xscreensaver-command
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -298,7 +299,7 @@ bar {
 exec --no-startup-id nm-applet
 exec --no-startup-id udiskie --tray
 exec --no-startup-id volumeicon
-exec --no-startup-id nitrogen --set-zoom-fill $HOME/wall.png
+#exec --no-startup-id nitrogen --set-zoom-fill $HOME/wall.png
 #exec --no-startup-id feh --bg-fill $HOME/wall.png
 #exec --no-startup-id synapse -s
 #exec --no-startup-id compton --config ~/.compton.conf
@@ -311,6 +312,7 @@ exec --no-startup-id parcellite
 exec --no-startup-id xmodmap -e 'remove Mod4 = Super_R'
 exec --no-startup-id xmodmap -e 'add Mod3 = Super_R'
 exec --no-startup-id xrandr --output LVDS1 --primary
-exec --no-startup-id $HOME/.dualLog
 exec --no-startup-id dunst -config /home/cesco/.config/dunst/dunstrc
-exec --no-startup-id i3-msg 'workspace 9:Top; exec urxvt -e top -d 1; workspace 1'
+#exec --no-startup-id i3-msg 'workspace 9:Top; exec urxvt -e top -d 1; move 9:Top to LVDS1; workspace 1'
+exec --no-startup-id i3-msg 'workspace 1; workspace 9:Top; exec urxvt -e top -d 1; workspace 1'
+exec --no-startup-id nitrogen --restore
