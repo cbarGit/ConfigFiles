@@ -8,7 +8,7 @@ double_buffer = true,
 total_run_times = 0,  
 short_units = true,  
 if_up_strictness = address,  
-use_spacer = "right",
+use_spacer = "left",
 pad_percents = 2,
 override_utf8_locale = true,
 cpu_avg_samples = 2
@@ -18,29 +18,77 @@ conky.text = [[
 # JSON for 3bar  
 [
 #{ "full_text" : "${if_match "${mpd_status}" =="Playing"}${mpd_artist}-${mpd_album}-${mpd_title 15}::${mpd_elapsed}/${mpd_length}::${mpd_status}::${mpd_bar 5,10}$else${mpd_status}${endif}","color":"\#ED6D79"},
-{ "full_text" : "  ${if_match "${mpd_status}" =="Playing"}${mpd_smart}::${mpd_elapsed}/${mpd_length}${else}${mpd_status}${endif} ","color":"\#999911"},
+
+{ "full_text" : ${if_mpd_playing} ${if_match "${mpd_status}"=="Playing"}
+                                  " : ${scroll 16 2 ${mpd_smart}} "\
+                                  ${else} " : ${scroll 16 2 ${mpd_smart}} "\
+                                  ${endif}\
+                ${else}""${endif}, "color":"\#999911"},
+
+
 { "full_text" : " ▲ ${upspeed wlp4s0} ","color":"\#ED6D79"},
+
+
 { "full_text" : " ▼ ${downspeed wlp4s0} ","color":"\#71E096"},
-{ "full_text" : " ${if_existing /proc/net/route wlp4s0}  ${addr wlp4s0}${endif} ","color":"\#89b859"},
+
+
+{ "full_text" : " ${if_existing /sys/class/net/wlp4s0/operstate up}  ${addr wlp4s0}${endif} ","color":"\#89b859"},
+
+
+{ "full_text" : " ${if_existing /sys/class/net/wlp4s0/operstate up}  ${execpi 60 cat /home/cesco/.ip}${endif} ","color":"\#B6AE00"},
+
+
+#{ "full_text" : " ${if_existing /proc/net/route wlp4s0}  ${addr wlp4s0}${endif} ","color":"\#89b859"},
 #{ "full_text" : "  ${if_up wlp4s0} ${wireless_essid wlp4s0} ${addr wlp4s0}${else} down${endif} " , "color" : ${if_up wlp4s0} "\#E8D1B2"${else}"\#ff0000"${endif} },  
-#{ "full_text" : "  ${if_up enp0s25}${addr eth0}  ${totaldown enp0s25}  ${totalup enp0s25}${else}down${endif} " , "color" : ${if_up enp0s25} "\#00ff00"${else}"\#ff0000"${endif} },  
-{"full_text":" :${execi 3 sensors | awk '/Core 0/ {gsub(/\+/,"",$3);gsub(/\..+/,"",$3); print $3}'}°C ","color": ${if_match ${execi 3 sensors | awk '/Core 0/ {gsub(/\+/,"",$3);gsub(/\..+/,"",$3); print $3}'}<55}"\#F5A264"${else}"\#ff0000"${endif}},
-{"full_text":" :${execi 3 sensors | awk '/Core 1/ {gsub(/\+/,"",$3);gsub(/\..+/,"",$3); print $3}'}°C ","color": ${if_match ${execi 3 sensors | awk '/Core 1/ {gsub(/\+/,"",$3);gsub(/\..+/,"",$3); print $3}'}<55}"\#F5A264"${else}"\#ff0000"${endif}},
+#{ "full_text" : "  ${if_up enp0s25}${addr enp0s25}  ${totaldown enp0s25}  ${totalup enp0s25}${else}down${endif} " , "color" : ${if_up enp0s25} "\#00ff00"${else}"\#ff0000"${endif} },  
+
+
+{"full_text":" :${execi 3 sensors | awk '/Ph/ {gsub(/\+/,"",$4);gsub(/\..+/,"",$4); print $4}'}°C ","color": ${if_match ${execi 3 sensors | awk '/Ph/ {gsub(/\+/,"",$4);gsub(/\..+/,"",$4); print $4}'}<55 }"\#F5A264"${else}"\#ff0000"${endif}},
+
+
+#{"full_text":" :${execi 3 sensors | awk '/Core 0/ {gsub(/\+/,"",$3);gsub(/\..+/,"",$3); print $3}'}°C ","color": ${if_match ${execi 3 sensors | awk '/Core 0/ {gsub(/\+/,"",$3);gsub(/\..+/,"",$3); print $3}'}<55}"\#F5A264"${else}"\#ff0000"${endif}},
+
+
+#{"full_text":" :${execi 3 sensors | awk '/Core 1/ {gsub(/\+/,"",$3);gsub(/\..+/,"",$3); print $3}'}°C ","color": ${if_match ${execi 3 sensors | awk '/Core 1/ {gsub(/\+/,"",$3);gsub(/\..+/,"",$3); print $3}'}<55}"\#F5A264"${else}"\#ff0000"${endif}},
+
+
 #{ "full_text" : "  C0: ${exec sensors | awk '/Core 0/ {gsub(/\+/,"",$3);gsub(/\..+/,"",$3); print $3}'}° " , "color" : "\#FF6504" },  
 #{ "full_text" : "  C1: ${exec sensors | awk '/Core 1/ {gsub(/\+/,"",$3);gsub(/\..+/,"",$3); print $3}'}° " , "color" : "\#FF6504" },  
+
+
 { "full_text" : "  % ${cpu cpu} ", "color" : ${if_match ${cpu cpu0}<60}"\#67EEBD"${else}"\#fb2929"${endif} },  
+
+
 { "full_text" : "  ${memperc}% " , "color" : "\#00a9b5" },  
+
+
 { "full_text" : "   ${fs_free /home}" , "color":"\#cbb63c"},
+
+
 { "full_text" : "   ${if_match ${exec xset -q | grep LED| awk '{ print $10}'| cut -c5} == 0}it${else}us${endif} ", "color" : "\#47C194" },  
+
+
 { "full_text" : "   ${if_match "${exec xset -q | grep 'DPMS is' | cut -c11-11}" == "D"}Off${else}On ${endif} ", "color" : "\#82B6DE" },  
+
+
 { "full_text" : "   ${uptime_short} " , "color": "\#cd6767"},
+
+
 { "full_text" : " ♪ ${exec amixer -M get Master | awk -F'[]%[]' '/%/ {if ($7 == "off") { print "Mute" } else { print $2"%" }}' | uniq | head -1} ", "color" : "\#1B85B8" },
+
+
 { "full_text" : "  ${if_empty ${exec cat /sys/class/power_supply/BAT1/status | grep 'Discharging'}}\
 \
 ${else}\
 \
 ${endif} % ${battery_percent BAT1} ", "color" : "\#C3CB71"},
+
+
 { "full_text" : "   ${time %a %d.%m.%y} ", "color" : "\#e1e1e1" },  
-{ "full_text" : "   ${time %H:%M:%S} ", "color" : "\#e1e1e1" }],
-#{ "full_text" : " ${time %H:%M:%S} ", "color" : "\#F1F1F1" }], 
+
+#
+{ "full_text" : " ${time %H:%M:%S} ", "color" : "\#e1e1e1" }],
+
+
+#{ "full_text" : "${time %H:%M:%S} ", "color" : "\#F1F1F1" }], 
 ]] 
