@@ -23,8 +23,8 @@ conky.text = [[
 
 
 { "full_text" : ${if_mpd_playing} ${if_match "${mpd_status}"=="Playing"}
-                                  " : ${scroll 16 2 ${mpd_smart}} "\
-                                  ${else} " : ${scroll 16 2 ${mpd_smart}} "\
+                                  " : ${scroll 16 2 ${execp mpc | head -1|iconv -f UTF-8 -t ASCII//TRANSLIT}}"\
+                                  ${else} " : ${scroll 16 2 ${execp mpc | head -1|iconv -f UTF-8 -t ASCII//TRANSLIT}}"\
                                   ${endif}\
                 ${else}""${endif}, "color":"\#999911"},
 ###
