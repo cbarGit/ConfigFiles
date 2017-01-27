@@ -92,3 +92,4 @@ ${endif} % ${battery_percent BAT1} ", "color" : "\#C3CB71"},
 
 #{ "full_text" : "${time %H:%M:%S} ", "color" : "\#F1F1F1" }], 
 ]] 
+

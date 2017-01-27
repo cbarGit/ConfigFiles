@@ -299,7 +299,7 @@ bar {
 bar {
 	id 2
     position top
-	#status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
+	#status_command i3blocks -c ~/.config/i3/i3blocks.conf
     #status_command python $HOME/.config/i3/py3status 
     #status_command py3status -c $HOME/.config/i3/i3status/config2 
     status_command $HOME/.config/i3/conky-i3bar 1
@@ -325,11 +325,7 @@ bar {
 
 exec --no-startup-id nm-applet
 exec --no-startup-id udiskie -2 -s
-#exec --no-startup-id volumeicon
-#exec --no-startup-id nitrogen --set-zoom-fill $HOME/wall.png
-#exec --no-startup-id feh --bg-fill $HOME/wall.png
-#exec --no-startup-id synapse -s
-#exec --no-startup-id compton --config ~/.compton.conf
+exec --no-startup-id volumeicon
 exec --no-startup-id compton --backend glx --vsync opengl-swc -b
 exec --no-startup-id bash -c 'xset s off off'
 exec --no-startup-id xset dpms 60 60 60

@@ -61,7 +61,7 @@ conky.text = [[
 { "full_text" : "   ${uptime_short} " , "color": "\#cd6767"},
 
 ### VOLUME
-{ "full_text" : " ♪ ${exec amixer -M get Master | awk -F'[]%[]' '/%/ {if ($7 == "off") { print "Mute" } else { print $2"%" }}' | uniq | head -1} ", "color" : "\#906CCA" },
+{ "full_text" : " ♪ ${exec amixer -M get Master | awk -F'[]%[]' '/%/ {if ($5 == "off") { print "Mute" } else { print $2"%" }}' | uniq | head -1} ", "color" : "\#906CCA" },
 
 ### DPMS
 { "full_text" : "   ${if_match "${exec xset -q | grep 'DPMS is' | cut -c11-11}" == "D"}Off${else}On ${endif} ", "color" : ${if_match "${exec xset -q | grep 'DPMS is' | cut -c11-11}"=="E"}"\#6FA4C6"${else}"\#ff0000"${endif} },  

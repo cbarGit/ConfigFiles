@@ -16,4 +16,4 @@
     #   touch /tmp/conky-i3bar  
     #fi  
       
-    exec conky -c ~/.i3/.conkyrc
+    exec conky -c ~/.config/i3/.conkyrcH

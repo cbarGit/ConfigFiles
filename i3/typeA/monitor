@@ -6,6 +6,8 @@ len=$(echo ${#active})
 img=$HOME/wall.png
 flag=0
 
+echo $len
+
 if [[ $hdmi = "HDMI1" ]]
 then
 	flag=0

@@ -71,10 +71,10 @@ alias vr="vim --remote-silent"
 ##############################
 #alias ls='ls --color=auto'
 alias hs='history | grep --color=auto'
-alias quickserve='/home/cesco/.quickserve/./quickserve'
-alias cIP='/home/cesco/.checkIP'
+alias quickserve='$HOME/.quickserve/./quickserve'
+alias cIP='$HOME/.checkIP'
 alias MHz='watch -n 1 grep \"cpu MHz\" /proc/cpuinfo'
-alias sfs='/home/cesco/.systool | less -R'
+alias sfs='$HOME/.systool | less -R'
 alias ducks='du -chs *|sort -hr|head -11'
 alias ducksNOHEAD='du -chs *|sort -hr'
 alias spy='lsof -i -P +c 0 +M | grep -i "$1"'
