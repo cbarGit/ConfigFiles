@@ -1,0 +1,40 @@
+{
+    "window.menuBarVisibility": "toggle",
+    "editor.fontSize": 18,
+    "editor.fontFamily": "'Droid Sans Mono', 'Source Code Pro', monospace, 'Droid Sans Fallback'",
+    "files.exclude": {
+        "**/.vscode": true,
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/._.DS_Store": true,
+        "**/*.pyc": true
+    },
+    "editor.wordWrap": "on",
+    "editor.wrappingIndent": "none",
+    "editor.renderWhitespace": "boundary",
+    "workbench.colorTheme": "One Dark Pro",
+    "workbench.iconTheme": "vscode-icons",
+    "python.linting.enabled": false,
+    "python.pythonPath": "/usr/bin/python",
+    "python.autoComplete.extraPaths": [
+            ""
+        ],
+    "window.zoomLevel": 0.4,
+    "workbench.tips.enabled": false,
+    "editor.minimap.enabled": false,
+    "editor.minimap.maxColumn": 200,
+    "editor.minimap.renderCharacters": false,
+    // "git.path": "/home/<User>/catflow/cflow-trunk/.git",
+    "go.toolsGopath": "/home/<User>/Code/Go",
+    "workbench.iconTheme": "vscode-icons",
+    "typescript.check.npmIsInstalled": false,
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "python.disablePromptForFeatures": [
+        "pylint"
+    ],
+    "gtkTitleBar.mode":"dark"
+}
