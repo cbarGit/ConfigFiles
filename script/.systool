@@ -10,7 +10,7 @@ echo -n "Il processore è un ";cat /proc/cpuinfo | awk  'FNR==5{for(i=4;i<=11;i+
 echo -n "con";echo $(cat /proc/cpuinfo | awk -F: 'FNR==13{print "\033[38;5;83m"$2"\033[0m"}')" core/s, ed una cache size di"$(cat /proc/cpuinfo | awk -F: 'FNR==9{print "\033[38;5;83m"$2"\033[0m"}')".";
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo -en "Il tuo IP pubblico è: \E[4;34m`tput bold``/home/cesc/.checkIP``tput sgr0`. "; echo -e "Mentre il privato: \E[1;34m`tput bold``ifconfig | awk -F: 'FNR==19 {print $2}' | awk '{print $1}'``tput sgr0`.";
-echo -e "La durata dell'attuale sessdione è di\E[0;36m`tput bold``/home/cesc/.uptime | cut -d: -f2 | head -n1``tput sgr0`."
+echo -e "La durata dell'attuale sessione è di\E[0;36m`tput bold``/home/cesc/.uptime | cut -d: -f2 | head -n1``tput sgr0`."
 echo -e "L'ultimo reboot in data (formato anglosassone): \E[0;36m`tput bold``last | grep reboot | head -n1 | awk '{print $5,$6,$7,$8}'``tput sgr0`"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo -e "\E[37m`tput bold`Queste sono delle informazioni sul disco:`tput sgr0`"
